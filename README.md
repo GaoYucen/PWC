@@ -4,23 +4,30 @@
 
 ```mermaid
 graph LR;
-  PWCA.py-->module_selector.py;
-  module_selector.py-->model_set.py;
-  PWCA.py-->shortest_path.py;
-  PWCA.py-->simulation.py;
-  simulation.py-->files;
-  files-->simulation.py;
+  PWCA.py-->read_graph.py-->data_files;
+  PWCA.py-->chasing.py-->param.py;
+  PWCA.py-->module_selector.py-->model_set.py-->param.py;
+  PWCA.py-->shortest_path.py-->param.py;
   PWCA.py-->param.py;
-  module_selector.py-->param.py;
-  model_set.py-->param.py;
-  shortest_path.py-->param.py;
-  simulation.py-->param.py;
 ```
 
-## Parameters
+## Files
 
-1. Need to be modified, default compiler in first line of every python file
-2. `-g`: generate new nodes and write them to files
-   * For example, `./PWCA.py -g`
-   * `./PWCA.py` will read orders from files
-3. *Place to change input files:* `param.py`
+- Sample Data:
+  - snodes.txt
+  - enodes.txt
+  - graph.txt
+- Code:
+  - PWCA: the main code
+  - read_graph.py: define the functions to read data
+  - param.py: defne the parameters
+  - model_set: define the base models
+  - module_selector.py: select the target model
+  - shortest_path.py: define the time-decay shortest path algorithm
+  - chasing.py: define the chasing function
+
+
+
+## To Run
+
+`python PWCA.py`

@@ -1,5 +1,3 @@
-#!/home/zzhyyds/anaconda3/bin/python
-
 import numpy as np
 import random
 import math
@@ -9,7 +7,7 @@ import sys
 import matplotlib
 
 import model_set
-import simulation
+import read_graph
 import shortest_path
 import module_selector
 import chasing

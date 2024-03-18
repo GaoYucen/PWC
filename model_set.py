@@ -1,4 +1,3 @@
-#!/home/zzhyyds/anaconda3/bin/python
 import random
 import numpy as np
 import copy
@@ -17,6 +16,7 @@ class Baseline_model:
     self.base_graph = {}
     self.generated_graphs = []
     self.acc = 0
+    self.w = 1/len(param.scale_set)
 
   # graph is a dict of dict, representing the adjacency list
   def read_graph(self, graph):
