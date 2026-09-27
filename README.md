@@ -6,6 +6,23 @@ Official research code for the KDD 2024 paper:
 
 This repository contains a cleaned implementation of PWC, evaluation utilities, reproducibility scripts, tests, and a lightweight Chengdu example.
 
+## Citation
+
+If you find this work useful, please cite:
+
+> **Yucen Gao**, Zhehao Zhu, Mingqian Ma, Fei Gao, Hui Gao, Yangguang Shi, Xiaofeng Gao.  
+> *Online Preference Weight Estimation Algorithm with Vanishing Regret for Car-Hailing in Road Network.*  
+> ACM Knowledge Discovery and Data Mining (KDD), 2024.
+
+```bibtex
+@inproceedings{gao2024pwc,
+  title     = {Online Preference Weight Estimation Algorithm with Vanishing Regret for Car-Hailing in Road Network},
+  author    = {Gao, Yucen and Zhu, Zhehao and Ma, Mingqian and Gao, Fei and Gao, Hui and Shi, Yangguang and Gao, Xiaofeng},
+  booktitle = {Proceedings of the ACM SIGKDD Conference on Knowledge Discovery and Data Mining},
+  year      = {2024}
+}
+```
+
 ## Method overview
 
 PWC addresses online preference-weight selection for route planning when multiple preference-weight estimators (PWEs) are available. At each time slot, an online selector chooses a target PWE, and a finite-history chasing mechanism combines recent preference weights for routing.
