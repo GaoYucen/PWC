@@ -16,10 +16,19 @@ If you find this work useful, please cite:
 
 ```bibtex
 @inproceedings{gao2024pwc,
-  title     = {Online Preference Weight Estimation Algorithm with Vanishing Regret for Car-Hailing in Road Network},
-  author    = {Gao, Yucen and Zhu, Zhehao and Ma, Mingqian and Gao, Fei and Gao, Hui and Shi, Yangguang and Gao, Xiaofeng},
-  booktitle = {Proceedings of the ACM SIGKDD Conference on Knowledge Discovery and Data Mining},
-  year      = {2024}
+  author       = {Yucen Gao and
+                  Zhehao Zhu and
+                  Mingqian Ma and
+                  Fei Gao and
+                  Hui Gao and
+                  Yangguang Shi and
+                  Xiaofeng Gao},
+  title        = {Online Preference Weight Estimation Algorithm with Vanishing Regret
+                  for Car-Hailing in Road Network},
+  booktitle    = {Proceedings of the {ACM} {SIGKDD} Conference on Knowledge Discovery
+                  and Data Mining (SIGKDD)},
+  pages        = {863--871},
+  year         = {2024}
 }
 ```
 
