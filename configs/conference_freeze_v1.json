@@ -2,7 +2,7 @@
   "schema_version": 1,
   "name": "PWC_CONFERENCE_FREEZE_V1",
   "status": "frozen",
-  "research_branch": "paper-faithful-rewrite",
+  "research_branch": "main",
   "protocol": {
     "horizon_T": 168,
     "orders_per_slot_N": 20,
