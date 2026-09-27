@@ -1,0 +1,19 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Research data and generated artifacts must stay outside Git.
+data/
+private_data/
+results/
+artifacts/
+*.tar
+*.tar.gz
+*.zip
+*.npy
+*.npz
+*.pkl
+
+# Never commit recovered private city datasets.
+**/beijing/
+**/qingdao/

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "name": "PWC_CONFERENCE_FREEZE_V1",
+  "status": "frozen",
+  "research_branch": "paper-faithful-rewrite",
+  "protocol": {
+    "horizon_T": 168,
+    "orders_per_slot_N": 20,
+    "previous_slots_L": 3,
+    "chasing_window": "previous L slots plus current slot",
+    "reward_metric": "mean physical road-length overlap",
+    "base_models": [
+      "Length",
+      "ConSTGAT",
+      "POWER-S",
+      "POWER-D"
+    ],
+    "weight_calibration": "positive median per PWE before chasing",
+    "selector": "FPL with exponential perturbation",
+    "beta_rate": 3,
+    "development_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "holdout_seeds": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "current_slot_ground_truth_leakage": false,
+    "sampling": "topology-valid orders first, deterministic reservoir sample seed 2024"
+  },
+  "holdout": {
+    "pwc_mean_overlap_pct": 78.89210950462655,
+    "best_fixed_model": "POWER-D",
+    "best_fixed_mean_overlap_pct": 78.79617604471389,
+    "pwc_minus_best_fixed_pp": 0.09593345991267155,
+    "gap_std_pp": 0.15301080366683079,
+    "non_negative_gap_seeds": 3,
+    "total_seeds": 5
+  },
+  "n_sensitivity": {
+    "10": {
+      "pwc_pct": 78.35823430220756,
+      "best_fixed_pct": 78.39675054308914,
+      "gap_pp": -0.03851624088158312
+    },
+    "15": {
+      "pwc_pct": 78.44675858718057,
+      "best_fixed_pct": 78.40220655004183,
+      "gap_pp": 0.044552037138740896
+    },
+    "20": {
+      "pwc_pct": 78.87672296146185,
+      "best_fixed_pct": 78.79617604471389,
+      "gap_pp": 0.08054691674797887
+    }
+  },
+  "source_beta_anchor": {
+    "beta_rate": 5.348,
+    "five_seed_pwc_pct": 78.79952906035048,
+    "five_seed_gap_pp": 0.003353015636600176
+  },
+  "data_policy": {
+    "tracked_research_datasets": false,
+    "forbidden_from_git": [
+      "Beijing recovered data",
+      "Qingdao recovered data"
+    ],
+    "tracked_sample": "historical Chengdu sample only"
+  }
+}
