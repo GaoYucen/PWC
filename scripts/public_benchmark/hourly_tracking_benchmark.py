@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse, json, math, pickle, statistics, sys
+import argparse, hashlib, json, math, pickle, platform, statistics, sys
 from collections import deque
 from pathlib import Path
 
@@ -158,6 +158,8 @@ def main():
     ap.add_argument("--N",type=int,default=5)
     ap.add_argument("--seeds",type=int,default=20)
     args=ap.parse_args()
+    if args.N < 1 or args.seeds < 1:
+        ap.error("N and seeds must be positive")
     city=Path(args.city_dir); out=Path(args.output); out.mkdir(parents=True,exist_ok=True)
     val_orders=load_orders(city/"validation_orders.pkl")
     test_orders=load_orders(city/"sampled_orders.pkl")
@@ -175,13 +177,17 @@ def main():
         sw[str(S)]=100*switching_oracle(Rt,S)
 
     algs=[]
+    seed_records=[]
     # Original and validation-tuned FPL.
     tuned,top=tune_fpl(Rv)
     for name,eta in [("FPL-beta3",3.0),("FPL-val-tuned",float(tuned[2]))]:
         direct=[]; chase=[]
         for seed in range(args.seeds):
             seq,d=fpl_sequence(Rt,eta,seed)
-            direct.append(d); chase.append(chase_reward(city,test_orders,seq,args.N))
+            c=chase_reward(city,test_orders,seq,args.N)
+            direct.append(d); chase.append(c)
+            seed_records.append({"name":name,"seed":seed,"selected_models":seq,
+                                 "direct_pct":100*d,"chase_pct":100*c})
         algs.append({
           "name":name,"params":{"eta":eta},
           "validation_top5":top if name=="FPL-val-tuned" else None,
@@ -195,7 +201,10 @@ def main():
         exp=expected_reward(factory,Rt); direct=[]; chase=[]
         for seed in range(args.seeds):
             seq,d=sampled_sequence(factory,Rt,1000+seed)
-            direct.append(d); chase.append(chase_reward(city,test_orders,seq,args.N))
+            c=chase_reward(city,test_orders,seq,args.N)
+            direct.append(d); chase.append(c)
+            seed_records.append({"name":kind,"seed":1000+seed,"selected_models":seq,
+                                 "direct_pct":100*d,"chase_pct":100*c})
         algs.append({
           "name":kind,"params":params,"validation_expected_pct":100*v,
           "validation_top5":[{"pct":100*x[0],"params":x[1]} for x in top],
@@ -217,6 +226,8 @@ def main():
         "test":"first N mapped orders per real hour; N fixed",
         "hyperparameters":"validation only; frozen on test",
         "feedback":"full-information rewards revealed after each completed hour",
+        "stochastic_seeds":args.seeds,
+        "FPL_seed_start":0,"probability_selector_seed_start":1000,
       },
       "validation_order_counts":{"min":min(val_counts),"median":float(np.median(val_counts)),"max":max(val_counts)},
       "test_order_counts":{"min":min(test_counts),"median":float(np.median(test_counts)),"max":max(test_counts)},
@@ -226,6 +237,21 @@ def main():
       "algorithms":algs,
     }
     (out/"summary.json").write_text(json.dumps(summary,indent=2))
+    (out/"per_seed.json").write_text(json.dumps(seed_records,indent=2))
+    def fingerprint(path):
+        h=hashlib.sha256()
+        with path.open("rb") as f:
+            for block in iter(lambda:f.read(1024*1024),b""):
+                h.update(block)
+        return h.hexdigest()
+    provenance={"python":platform.python_version(),"numpy":np.__version__,
+                "script_sha256":fingerprint(Path(__file__)),
+                "dataset_manifest_sha256":fingerprint(city/"MANIFEST.json") if (city/"MANIFEST.json").exists() else None,
+                "protocol":summary["protocol"],
+                "input_sha256":{name:fingerprint(city/name) for name in
+                    ("topology.npz","sampled_orders.pkl","validation_orders.pkl",
+                     "weight_length.npy","weight_time.npy","weight_power_s.npy","weight_power_d.npy")}}
+    (out/"provenance.json").write_text(json.dumps(provenance,indent=2))
     print(json.dumps(summary,indent=2))
 
 if __name__=="__main__": main()

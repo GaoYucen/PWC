@@ -1,0 +1,106 @@
+{
+  "data_verification": {
+    "status": "passed",
+    "files_verified": 27,
+    "nodes": 56779,
+    "edges": 130561,
+    "trajectories": {
+      "train": 9697,
+      "validation": 3178,
+      "test": 2956
+    },
+    "test_hours": 168,
+    "test_min_orders": 6,
+    "manifest_sha256": "8b1fb1cccbc3075a1b307cd531bf224469fe6ce43438a9b87a7f6045e8cabf02"
+  },
+  "result": {
+    "verification_scope": "cached rewards and direct selector replay; no routing/chasing rerun",
+    "reference_match": true,
+    "seeds": 20,
+    "models": [
+      "Length",
+      "TravelTime-Static",
+      "Preference-Static",
+      "Preference-Dynamic"
+    ],
+    "base_means_pct": [
+      55.97901033803849,
+      51.45912628388688,
+      61.576741845373014,
+      60.77139921981173
+    ],
+    "best_fixed_pct": 61.576741845373014,
+    "full_oracle_pct": 64.43281447771076,
+    "switching_oracle_pct": {
+      "0": 61.576741845373014,
+      "1": 61.830997532758204,
+      "2": 62.01112140472809,
+      "4": 62.21810799869839,
+      "8": 62.57951902354842,
+      "16": 63.03748670670652,
+      "24": 63.38278218379525,
+      "32": 63.66185413737182,
+      "48": 64.05015003336365,
+      "64": 64.26792163468153,
+      "96": 64.43074856774388,
+      "167": 64.43281447771079
+    },
+    "algorithms": [
+      {
+        "name": "FPL-beta3",
+        "params": {
+          "eta": 3.0
+        },
+        "direct_pct": 61.255790921831654,
+        "direct_std_pp": 0.2721891303784747
+      },
+      {
+        "name": "FPL-val-tuned",
+        "params": {
+          "eta": 100.0
+        },
+        "direct_pct": 61.49041088967867,
+        "direct_std_pp": 0.024302036889551626
+      },
+      {
+        "name": "Hedge",
+        "params": {
+          "eta": 50.0
+        },
+        "direct_pct": 61.43911809970515,
+        "direct_std_pp": 0.0839196285815,
+        "test_expected_direct_pct": 61.40404738142696
+      },
+      {
+        "name": "FixedShare",
+        "params": {
+          "eta": 20.0,
+          "alpha": 0.005
+        },
+        "direct_pct": 61.11097023559944,
+        "direct_std_pp": 0.21409584337088197,
+        "test_expected_direct_pct": 61.1299451098475
+      },
+      {
+        "name": "DiscountedHedge",
+        "params": {
+          "eta": 50.0,
+          "gamma": 0.9
+        },
+        "direct_pct": 61.292875038037295,
+        "direct_std_pp": 0.1525335392542589,
+        "test_expected_direct_pct": 61.321789866415614
+      },
+      {
+        "name": "SlidingHedge",
+        "params": {
+          "eta": 50.0,
+          "window": 12
+        },
+        "direct_pct": 61.100836625470855,
+        "direct_std_pp": 0.11214699950016667,
+        "test_expected_direct_pct": 61.07965863024285
+      }
+    ]
+  }
+}

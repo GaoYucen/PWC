@@ -1,0 +1,27 @@
+{
+  "python": "3.11.11",
+  "numpy": "2.4.6",
+  "script_sha256": "8c33c5e26771dbeb351b56c88296cf9a48af1b2fc61a03486af3a3d482af29b6",
+  "dataset_manifest_sha256": null,
+  "protocol": {
+    "T": 168,
+    "N_test": 5,
+    "L": 3,
+    "validation": "all available mapped orders per real hour; mean overlap reward",
+    "test": "first N mapped orders per real hour; N fixed",
+    "hyperparameters": "validation only; frozen on test",
+    "feedback": "full-information rewards revealed after each completed hour",
+    "stochastic_seeds": 20,
+    "FPL_seed_start": 0,
+    "probability_selector_seed_start": 1000
+  },
+  "input_sha256": {
+    "topology.npz": "37230c1faaebfbf313940ffb6c52592c678008f6c26cc9ff10947edec4579507",
+    "sampled_orders.pkl": "9e6d11fad5f4dfe69822ea83b41d5813c97707f51fd0837b37093e1aa7212f20",
+    "validation_orders.pkl": "dbab4fdfe037585921690e7af5c2e1feccb9a2beec343ba1ff523514c6a7a90b",
+    "weight_length.npy": "b633081fbbbfb69b8d0bbf316e53d06a571c507d1c039552241868fe5ee60564",
+    "weight_time.npy": "664c2deddaa49ad087293bd1b31a2b2ad7a8c9be657055adba15a31055f76513",
+    "weight_power_s.npy": "0fc63dd42c5adff4f550ce5e0581401bae935c672ef2b82f9eb6e25c26c898e3",
+    "weight_power_d.npy": "6c34e13c2daecf52b390a6b82bb315e47dc06dd53ec0a897efd94f2971411c54"
+  }
+}

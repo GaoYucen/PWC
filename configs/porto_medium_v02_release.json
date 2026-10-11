@@ -1,0 +1,9 @@
+{
+  "dataset_directory": "porto-medium-hourly-v0.2",
+  "asset_name": "porto-medium-hourly-v0.2.tar.gz",
+  "release_tag": "porto-medium-v0.2",
+  "url": "https://github.com/GaoYucen/PWC/releases/download/porto-medium-v0.2/porto-medium-hourly-v0.2.tar.gz",
+  "bytes": 226294103,
+  "sha256": "03f858f1b4f65df6991458df58c604742731b52f820e4cbc66d5e2b617482943",
+  "manifest_sha256": "8b1fb1cccbc3075a1b307cd531bf224469fe6ce43438a9b87a7f6045e8cabf02"
+}

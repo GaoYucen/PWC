@@ -1,0 +1,8 @@
+{
+  "python": "3.12.14",
+  "system": "Darwin",
+  "architecture": "arm64",
+  "numpy": "2.4.6",
+  "scipy": "1.17.1",
+  "networkx": "3.6.1"
+}

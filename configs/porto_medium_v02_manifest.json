@@ -1,0 +1,186 @@
+{
+  "dataset": "porto-medium-hourly-v0.2",
+  "package_date": "2026-10-11",
+  "files": {
+    "DATA_ATTRIBUTION.md": {
+      "bytes": 2070,
+      "sha256": "40b55706fda145ba856476a0ecbd628c4ea3b84b8b52cb1c727b26c4bee2bc2a"
+    },
+    "PROTOCOL.json": {
+      "bytes": 1783,
+      "sha256": "9c7a6f009ab66324212cb04ca89a4ff81be1f0db62f3385a17a5af57c43c4e25"
+    },
+    "edges.csv.gz": {
+      "bytes": 3093759,
+      "sha256": "90857eb1117e33f4ca543251c462500f717ccb9b20fe0628e156b367ea92d143"
+    },
+    "graph.graphml": {
+      "bytes": 71457329,
+      "sha256": "25c71b247b1cfef002ac5f045636641c2476178d9e4e47278c7fc7a03e85fbe8"
+    },
+    "metadata.json": {
+      "bytes": 4033,
+      "sha256": "ed7c14dd045f662c4cf4ff65b53ef8dfdd867b5584989e568d6a35a963f12165"
+    },
+    "nodes.csv.gz": {
+      "bytes": 639400,
+      "sha256": "3023f0062548a11e7b10a221bec0bb6dd6dca01641870b29ed9d4004379a6660"
+    },
+    "reference/build_environment.lock.txt": {
+      "bytes": 396,
+      "sha256": "5c9a7103f1f85a12830b2e6db3e91aed312e1a56c9cdb30a5164597ed044f239"
+    },
+    "reference/eval_environment.lock.txt": {
+      "bytes": 286,
+      "sha256": "693b50bd936b35d2ad016f12a6344ff8d60c809d89ade6f1d8ab1199fccee699"
+    },
+    "reference/reward_matrices.npz": {
+      "bytes": 9788,
+      "sha256": "f3f95e6b8d2f3e3c1b931b80d6fcbed89cc0f1d2416ec170428e9f5ebf89f158"
+    },
+    "reference/summary.json": {
+      "bytes": 7453,
+      "sha256": "ab7e5ed3ef95be50c5aee8bb68f54c0b7a031960e117cb138fcb09f4dbcb9bc3"
+    },
+    "sampled_orders.pkl": {
+      "bytes": 503617,
+      "sha256": "9e6d11fad5f4dfe69822ea83b41d5813c97707f51fd0837b37093e1aa7212f20"
+    },
+    "topology.npz": {
+      "bytes": 4566438,
+      "sha256": "37230c1faaebfbf313940ffb6c52592c678008f6c26cc9ff10947edec4579507"
+    },
+    "trajectories_test.jsonl.gz": {
+      "bytes": 676948,
+      "sha256": "131563a526ce0ff48d9eb5878520b2f60424f1572bddb8a478a1f595e969ca4e"
+    },
+    "trajectories_train.jsonl.gz": {
+      "bytes": 2168834,
+      "sha256": "948449ca29e79bcc53d85c8bdf1678486553b47b9ff2660771d94989492ba61c"
+    },
+    "trajectories_val.jsonl.gz": {
+      "bytes": 715558,
+      "sha256": "c1a0a86c15ca529438f55fa7a082c56a8ac84a360f0b3f7bcd45431a3f785529"
+    },
+    "validation_orders.pkl": {
+      "bytes": 545879,
+      "sha256": "dbab4fdfe037585921690e7af5c2e1feccb9a2beec343ba1ff523514c6a7a90b"
+    },
+    "weight_length.npy": {
+      "bytes": 522372,
+      "sha256": "b633081fbbbfb69b8d0bbf316e53d06a571c507d1c039552241868fe5ee60564"
+    },
+    "weight_power_d.npy": {
+      "bytes": 87737120,
+      "sha256": "6c34e13c2daecf52b390a6b82bb315e47dc06dd53ec0a897efd94f2971411c54"
+    },
+    "weight_power_s.npy": {
+      "bytes": 522372,
+      "sha256": "0fc63dd42c5adff4f550ce5e0581401bae935c672ef2b82f9eb6e25c26c898e3"
+    },
+    "weight_time.npy": {
+      "bytes": 522372,
+      "sha256": "664c2deddaa49ad087293bd1b31a2b2ad7a8c9be657055adba15a31055f76513"
+    },
+    "weights/length.npy": {
+      "bytes": 522372,
+      "sha256": "b633081fbbbfb69b8d0bbf316e53d06a571c507d1c039552241868fe5ee60564"
+    },
+    "weights/preference_dynamic_168.npy": {
+      "bytes": 87737120,
+      "sha256": "6c34e13c2daecf52b390a6b82bb315e47dc06dd53ec0a897efd94f2971411c54"
+    },
+    "weights/preference_static.npy": {
+      "bytes": 522372,
+      "sha256": "0fc63dd42c5adff4f550ce5e0581401bae935c672ef2b82f9eb6e25c26c898e3"
+    },
+    "weights/train_edge_traversal_count.npy": {
+      "bytes": 522372,
+      "sha256": "8da7e9674cc921030d5a8c72bb1f195cf6f104b4690772eb1b1a1bca3c5d5d6c"
+    },
+    "weights/travel_time_dynamic_168.npy": {
+      "bytes": 87737120,
+      "sha256": "3b114560098ae4bd4766589b2fbdc74e22ce3afdcff75481e08ffc946d038cb7"
+    },
+    "weights/travel_time_static.npy": {
+      "bytes": 522372,
+      "sha256": "664c2deddaa49ad087293bd1b31a2b2ad7a8c9be657055adba15a31055f76513"
+    },
+    "README.md": {
+      "bytes": 771,
+      "sha256": "aa88c658b278147383b3554dbd4d451f16f28e87ea9296863c9e0ed58fe51f7c"
+    }
+  },
+  "provenance": {
+    "dataset": "porto-medium-hourly-v0.2",
+    "timezone": "Europe/Lisbon",
+    "source_builder_commit": "b0d712a50ec04c7396c215c9dea89a2ae9cb4187",
+    "original_tracking_commit": "b0d712a50ec04c7396c215c9dea89a2ae9cb4187",
+    "raw_sampling_seed": 20261011,
+    "raw_cap_per_hour": 200,
+    "T": 168,
+    "N_test": 5,
+    "L": 3,
+    "reward": "mean physical road-length overlap; repeated edges counted",
+    "calibration": "positive per-model median scaling",
+    "feedback": "full information; select before revealing current-hour rewards",
+    "test_sampling": "first 5 accepted trajectories in chronological order within each hour",
+    "validation_sampling": "all accepted trajectories in each hour; equal weight per hour",
+    "validation_restarts_selector": true,
+    "test_restarts_selector": true,
+    "selector_seeds": {
+      "FPL": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "probability_selectors": [
+        1000,
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009,
+        1010,
+        1011,
+        1012,
+        1013,
+        1014,
+        1015,
+        1016,
+        1017,
+        1018,
+        1019
+      ]
+    },
+    "original_build_python": "3.11.11",
+    "reference_run_python": "3.11.11",
+    "raw_source_sha256": "210dd0a20da66a8fc2de3440aecd84670921bc257591f8365a4475e31453c5ea",
+    "graph_source_sha256": "25c71b247b1cfef002ac5f045636641c2476178d9e4e47278c7fc7a03e85fbe8",
+    "raw_source_doi": "10.24432/C55W25",
+    "reference_scope": "one dataset sample and one test week; seeds vary algorithm randomness only",
+    "oracle_scope": "direct choice among four base PWE routes; not an upper bound for chasing"
+  },
+  "attribution": "DATA_ATTRIBUTION.md"
+}

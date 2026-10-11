@@ -1,0 +1,301 @@
+{
+  "protocol": {
+    "T": 168,
+    "N_test": 5,
+    "L": 3,
+    "validation": "all available mapped orders per real hour; mean overlap reward",
+    "test": "first N mapped orders per real hour; N fixed",
+    "hyperparameters": "validation only; frozen on test",
+    "feedback": "full-information rewards revealed after each completed hour"
+  },
+  "validation_order_counts": {
+    "min": 2,
+    "median": 19.0,
+    "max": 38
+  },
+  "test_order_counts": {
+    "min": 5,
+    "median": 5.0,
+    "max": 5
+  },
+  "best_fixed_model": "Preference-Static",
+  "best_fixed_pct": 61.57674184537303,
+  "full_oracle_pct": 64.43281447771076,
+  "oracle_headroom_pp": 2.856072632337736,
+  "switching_oracle_pct": {
+    "0": 61.576741845373014,
+    "1": 61.830997532758204,
+    "2": 62.01112140472809,
+    "4": 62.21810799869839,
+    "8": 62.57951902354842,
+    "16": 63.03748670670652,
+    "24": 63.38278218379525,
+    "32": 63.66185413737182,
+    "48": 64.05015003336365,
+    "64": 64.26792163468153,
+    "96": 64.43074856774388,
+    "167": 64.43281447771079
+  },
+  "algorithms": [
+    {
+      "name": "FPL-val-tuned",
+      "params": {
+        "eta": 100.0
+      },
+      "validation_top5": [
+        [
+          0.6185970907291454,
+          0.0005808320856741041,
+          100
+        ],
+        [
+          0.6185823292759827,
+          0.0006415974253293764,
+          50
+        ],
+        [
+          0.6185148879942448,
+          0.0008645616984835148,
+          20
+        ],
+        [
+          0.6182444224721181,
+          0.0011341903565161373,
+          10
+        ],
+        [
+          0.6178636399110706,
+          0.0013321809889026877,
+          5
+        ]
+      ],
+      "direct_pct": 61.49041088967867,
+      "direct_std_pp": 0.02430203688955162,
+      "chase_pct": 61.456467168312976,
+      "chase_std_pp": 0.04509489349204469,
+      "chase_minus_best_fixed_pp": -0.12027467706005268,
+      "chase_gap_to_oracle_pp": 2.976347309397788,
+      "direct_minus_best_fixed_pp": -0.08633095569435767
+    },
+    {
+      "name": "Hedge",
+      "params": {
+        "eta": 50.0
+      },
+      "validation_expected_pct": 61.85769911975273,
+      "validation_top5": [
+        {
+          "pct": 61.85769911975273,
+          "params": {
+            "eta": 50.0
+          }
+        },
+        {
+          "pct": 61.851679224018476,
+          "params": {
+            "eta": 20.0
+          }
+        },
+        {
+          "pct": 61.829061148937704,
+          "params": {
+            "eta": 10.0
+          }
+        },
+        {
+          "pct": 61.777287181189045,
+          "params": {
+            "eta": 5.0
+          }
+        },
+        {
+          "pct": 61.7132709498499,
+          "params": {
+            "eta": 3.0
+          }
+        }
+      ],
+      "test_expected_direct_pct": 61.40404738142696,
+      "direct_pct": 61.43911809970515,
+      "direct_std_pp": 0.08391962858149998,
+      "chase_pct": 61.393501194315,
+      "chase_std_pp": 0.09666277743014041,
+      "chase_minus_best_fixed_pp": -0.18324065105802845,
+      "chase_gap_to_oracle_pp": 3.0393132833957637,
+      "direct_minus_best_fixed_pp": -0.13762374566788083
+    },
+    {
+      "name": "FPL-beta3",
+      "params": {
+        "eta": 3.0
+      },
+      "validation_top5": null,
+      "direct_pct": 61.255790921831654,
+      "direct_std_pp": 0.2721891303784747,
+      "chase_pct": 61.23765858624154,
+      "chase_std_pp": 0.2604206104793048,
+      "chase_minus_best_fixed_pp": -0.33908325913149184,
+      "chase_gap_to_oracle_pp": 3.195155891469227,
+      "direct_minus_best_fixed_pp": -0.3209509235413748
+    },
+    {
+      "name": "FixedShare",
+      "params": {
+        "eta": 20.0,
+        "alpha": 0.005
+      },
+      "validation_expected_pct": 61.77111674774027,
+      "validation_top5": [
+        {
+          "pct": 61.77111674774027,
+          "params": {
+            "eta": 20.0,
+            "alpha": 0.005
+          }
+        },
+        {
+          "pct": 61.76073633043912,
+          "params": {
+            "eta": 10.0,
+            "alpha": 0.005
+          }
+        },
+        {
+          "pct": 61.75960814674581,
+          "params": {
+            "eta": 50.0,
+            "alpha": 0.005
+          }
+        },
+        {
+          "pct": 61.71951174483592,
+          "params": {
+            "eta": 20.0,
+            "alpha": 0.01
+          }
+        },
+        {
+          "pct": 61.705249106149985,
+          "params": {
+            "eta": 50.0,
+            "alpha": 0.01
+          }
+        }
+      ],
+      "test_expected_direct_pct": 61.1299451098475,
+      "direct_pct": 61.110970235599424,
+      "direct_std_pp": 0.21409584337088197,
+      "chase_pct": 61.197567580650706,
+      "chase_std_pp": 0.1812321459813298,
+      "chase_minus_best_fixed_pp": -0.3791742647223231,
+      "chase_gap_to_oracle_pp": 3.2352468970600583,
+      "direct_minus_best_fixed_pp": -0.4657716097736042
+    },
+    {
+      "name": "DiscountedHedge",
+      "params": {
+        "eta": 50.0,
+        "gamma": 0.9
+      },
+      "validation_expected_pct": 61.83090133921256,
+      "validation_top5": [
+        {
+          "pct": 61.83090133921256,
+          "params": {
+            "eta": 50.0,
+            "gamma": 0.9
+          }
+        },
+        {
+          "pct": 61.82274122891135,
+          "params": {
+            "eta": 20.0,
+            "gamma": 0.98
+          }
+        },
+        {
+          "pct": 61.81639450010044,
+          "params": {
+            "eta": 20.0,
+            "gamma": 0.95
+          }
+        },
+        {
+          "pct": 61.81415555323232,
+          "params": {
+            "eta": 50.0,
+            "gamma": 0.95
+          }
+        },
+        {
+          "pct": 61.802239949069524,
+          "params": {
+            "eta": 20.0,
+            "gamma": 0.9
+          }
+        }
+      ],
+      "test_expected_direct_pct": 61.321789866415614,
+      "direct_pct": 61.29287503803731,
+      "direct_std_pp": 0.1525335392542589,
+      "chase_pct": 61.16632994768286,
+      "chase_std_pp": 0.17300937924592377,
+      "chase_minus_best_fixed_pp": -0.4104118976901674,
+      "chase_gap_to_oracle_pp": 3.2664845300279026,
+      "direct_minus_best_fixed_pp": -0.2838668073357198
+    },
+    {
+      "name": "SlidingHedge",
+      "params": {
+        "eta": 50.0,
+        "window": 12
+      },
+      "validation_expected_pct": 61.836376034797794,
+      "validation_top5": [
+        {
+          "pct": 61.836376034797794,
+          "params": {
+            "eta": 50.0,
+            "window": 12
+          }
+        },
+        {
+          "pct": 61.8331332933154,
+          "params": {
+            "eta": 30.0,
+            "window": 24
+          }
+        },
+        {
+          "pct": 61.82837251418866,
+          "params": {
+            "eta": 30.0,
+            "window": 12
+          }
+        },
+        {
+          "pct": 61.82270714154647,
+          "params": {
+            "eta": 50.0,
+            "window": 24
+          }
+        },
+        {
+          "pct": 61.80966239835539,
+          "params": {
+            "eta": 10.0,
+            "window": 24
+          }
+        }
+      ],
+      "test_expected_direct_pct": 61.07965863024285,
+      "direct_pct": 61.10083662547087,
+      "direct_std_pp": 0.1121469995001667,
+      "chase_pct": 61.02201199881736,
+      "chase_std_pp": 0.1457184585624404,
+      "chase_minus_best_fixed_pp": -0.5547298465556665,
+      "chase_gap_to_oracle_pp": 3.4108024788934017,
+      "direct_minus_best_fixed_pp": -0.4759052199021596
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 __pycache__/
 .pytest_cache/
 *.pyc
+.venv*/
+releases/
 
 # Research data and generated artifacts must stay outside Git.
 data/

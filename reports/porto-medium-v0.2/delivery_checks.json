@@ -1,0 +1,21 @@
+{
+  "dataset_files_identical_to_original_server": 19,
+  "dataset_manifest_files_checked": 27,
+  "archive_members": 28,
+  "cached_replay_reference_match": true,
+  "fresh_four_hour_route_reward_max_error": 0.0,
+  "unit_tests_passed": 11,
+  "corrupted_archive_rejected_before_extraction": true,
+  "extracted_kit_tests_passed": 11,
+  "extracted_kit_cached_replay_and_routing_smoke": "passed",
+  "core_main_reward_fix_preserved": true,
+  "fresh_full_reproduction": {
+    "T": 168,
+    "N": 5,
+    "seeds_per_algorithm": 20,
+    "algorithms": 6,
+    "max_reward_matrix_error": 0.0,
+    "max_summary_error_pp": 0.0,
+    "scope": "frozen experiment rerun; no new algorithm search"
+  }
+}

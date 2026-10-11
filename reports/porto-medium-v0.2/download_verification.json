@@ -1,0 +1,16 @@
+{
+  "data_verification": {
+    "status": "passed",
+    "files_verified": 27,
+    "nodes": 56779,
+    "edges": 130561,
+    "trajectories": {
+      "train": 9697,
+      "validation": 3178,
+      "test": 2956
+    },
+    "test_hours": 168,
+    "test_min_orders": 6,
+    "manifest_sha256": "8b1fb1cccbc3075a1b307cd531bf224469fe6ce43438a9b87a7f6045e8cabf02"
+  }
+}

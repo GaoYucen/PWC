@@ -2,6 +2,8 @@
 
 This branch builds a student-shareable benchmark from the public Porto taxi trajectory dataset and OpenStreetMap.
 
+The released **Medium v0.2** package is documented in [the student guide](PORTO_MEDIUM_STUDENT_GUIDE.md). The commands and output below describe the earlier Small pilot; do not use its event-based runner for the Medium real-hour protocol.
+
 ## Design goals
 
 - no Beijing/Qingdao/Shanghai recovered research data;

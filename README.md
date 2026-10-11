@@ -130,7 +130,25 @@ The Chengdu example is intentionally small and is separate from the full experim
 
 Large research datasets are not distributed in this repository. In particular, no Beijing or Qingdao experiment data are tracked in Git.
 
-Only the lightweight Chengdu example under `examples/chengdu/` is included.
+The historical Chengdu example remains under `examples/chengdu/`. A separate public **Porto Medium v0.2 student benchmark** is available as a versioned Release download.
+
+## Porto Medium v0.2 student package
+
+The public Porto benchmark includes processed trajectories, a frozen OSM road network, train-derived candidate edge costs, reference rewards, locked environments, and reproducibility scripts. It supports `T=168`, `N=5`, `L=3` on a continuous test week. No GPU or private city data are required.
+
+```bash
+python -m pip install -r requirements-porto-eval.lock.txt
+python scripts/public_benchmark/download_porto_medium.py
+python scripts/public_benchmark/student_benchmark.py verify
+python scripts/public_benchmark/student_benchmark.py replay
+python scripts/public_benchmark/student_benchmark.py smoke
+```
+
+Use Python 3.11 or 3.12. Start with the [student guide](docs/PORTO_MEDIUM_STUDENT_GUIDE.md) for environment setup, full routing reproduction, expected results, file schemas, and research boundaries. Download the [versioned student release](https://github.com/GaoYucen/PWC/releases/tag/porto-medium-v0.2) for the data and an offline kit containing code and data together.
+
+Porto uses Length, TravelTime-Static, Preference-Static and Preference-Dynamic **proxy costs**, not the original learned ConSTGAT/POWER models. The strongest tested online selector still trails the best fixed expert on this week; the reference results retain that negative finding. Cached reward replay validates selectors, while the complete command in the guide reruns routing and chasing.
+
+This test week has already been inspected. New method development requires a fresh unseen evaluation period for confirmatory claims. Preserve the [UCI and OpenStreetMap data attribution](docs/PORTO_DATA_ATTRIBUTION.md) when redistributing the data.
 
 ## Notes on the reproduced evaluation
 
