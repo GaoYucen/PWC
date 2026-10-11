@@ -20,6 +20,11 @@ from zoneinfo import ZoneInfo
 import networkx as nx
 import numpy as np
 import osmnx as ox
+import sys
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from scripts.public_benchmark.porto_build import (
     RAW_BBOX, SAMPLE_SECONDS, build_edge_index, build_weights, haversine_m,
