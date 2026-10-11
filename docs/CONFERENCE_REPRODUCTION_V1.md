@@ -14,6 +14,8 @@ The recovered evidence is most consistent with the following implementation:
 4. Heterogeneous PWE outputs are brought to a common positive scale before cross-model chasing. Positive per-model scaling does not change standalone shortest paths.
 5. FPL uses a relatively small exponential perturbation. The public historical source contains `beta=5.348`; robust multi-seed reconstruction selected `beta=3.0`.
 
+As of 2026-10-11, the generic `scripts/run_experiment.py` entry point is aligned with this frozen semantics: `continuous-overlap` is the default online reward. The q-threshold metric described in the manuscript remains available explicitly as `--reward-metric binary-threshold --q 0.95` for compatibility and diagnostics.
+
 ## Frozen main result
 
 | Method | Current reconstruction |

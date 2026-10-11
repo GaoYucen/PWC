@@ -97,6 +97,19 @@ python scripts/run_experiment.py \
   --weight-calibration median
 ```
 
+The default online reward is `continuous-overlap`: the mean physical road-length overlap between the predicted and observed routes in each slot. This is the frozen conference-reproduction semantics.
+
+To reproduce the q-threshold binary route-accuracy definition described in the manuscript text, request it explicitly:
+
+```bash
+python scripts/run_experiment.py \
+  --city-dir /path/to/processed/city \
+  --output /path/to/results/binary \
+  --orders 20 --T 168 --L 3 --seed 0 \
+  --weight-calibration median \
+  --reward-metric binary-threshold --q 0.95
+```
+
 For multi-seed selector evaluation, see:
 
 - `scripts/tune_continuous_selector.py`
@@ -121,6 +134,8 @@ Only the lightweight Chengdu example under `examples/chengdu/` is included.
 
 ## Notes on the reproduced evaluation
 
-The recovered implementation behavior is most consistent with continuous physical road-length overlap as the online reward. This differs from the thresholded route-accuracy description in the manuscript text. The repository records this implementation detail explicitly for reproducibility.
+The recovered implementation behavior is most consistent with continuous physical road-length overlap as the online reward. This differs from the thresholded route-accuracy description in the manuscript text.
+
+The generic `scripts/run_experiment.py` entry point now defaults to the frozen continuous-overlap protocol. The manuscript-described q-threshold metric remains available only through the explicit `--reward-metric binary-threshold` compatibility option.
 
 POWER-S and POWER-D are nearly tied under the reproduced setting; additional analysis is documented in `docs/APPENDIX_POWER_S_VS_D.md`.

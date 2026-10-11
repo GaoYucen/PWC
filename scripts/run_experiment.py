@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from pwc.experiment import ExperimentConfig, run_experiment
+from pwc.experiment import REWARD_METRICS, ExperimentConfig, run_experiment
 
 
 def main():
@@ -22,7 +22,22 @@ def main():
     ap.add_argument("--L", type=int, default=3)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--eta", type=float)
-    ap.add_argument("--q", type=float, default=0.95)
+    ap.add_argument(
+        "--reward-metric",
+        choices=REWARD_METRICS,
+        default="continuous-overlap",
+        help=(
+            "online reward used by PWC; continuous-overlap is the frozen "
+            "reproduction default, while binary-threshold reproduces the "
+            "q-threshold metric described in the manuscript text"
+        ),
+    )
+    ap.add_argument(
+        "--q",
+        type=float,
+        default=0.95,
+        help="overlap threshold used only with --reward-metric binary-threshold",
+    )
     ap.add_argument(
         "--weight-calibration",
         choices=["raw", "median"],
@@ -39,6 +54,7 @@ def main():
             chase_length=args.L,
             seed=args.seed,
             eta=args.eta,
+            reward_metric=args.reward_metric,
             overlap_threshold=args.q,
             weight_calibration=args.weight_calibration,
         )

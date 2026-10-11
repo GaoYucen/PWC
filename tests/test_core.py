@@ -1,5 +1,7 @@
 import math
+from types import SimpleNamespace
 
+from pwc.experiment import ExperimentConfig, batch_reward
 from pwc.metrics import route_accuracy_from_overlap, weighted_route_overlap_ratio
 from pwc.selector import FPLSelector
 
@@ -24,6 +26,43 @@ def test_weighted_overlap_preserves_repeated_edges():
 def test_paper_q_is_strictly_exceeded():
     assert route_accuracy_from_overlap(0.951, threshold=0.95) == 1.0
     assert route_accuracy_from_overlap(0.95, threshold=0.95) == 0.0
+
+
+def test_default_experiment_reward_is_continuous_overlap():
+    cfg = ExperimentConfig(city_dir="x", output_dir="y")
+    assert cfg.reward_metric == "continuous-overlap"
+
+
+def test_batch_reward_continuous_overlap_uses_mean_overlap():
+    result = SimpleNamespace(
+        accuracy=0.5,
+        per_order_overlap=[0.82, 0.94],
+    )
+    assert math.isclose(
+        batch_reward(result, "continuous-overlap"),
+        0.88,
+    )
+
+
+def test_batch_reward_binary_threshold_uses_accuracy():
+    result = SimpleNamespace(
+        accuracy=0.5,
+        per_order_overlap=[0.82, 0.94],
+    )
+    assert math.isclose(
+        batch_reward(result, "binary-threshold"),
+        0.5,
+    )
+
+
+def test_batch_reward_rejects_unknown_metric():
+    result = SimpleNamespace(accuracy=0.0, per_order_overlap=[])
+    try:
+        batch_reward(result, "unknown")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("unknown reward metric should be rejected")
 
 
 def test_selector_shape_and_positive_eta():

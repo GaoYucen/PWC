@@ -14,6 +14,7 @@ from .router import RoadRouter
 from .selector import FPLSelector
 
 MODEL_NAMES = ("Length", "ConSTGAT", "POWER-S", "POWER-D")
+REWARD_METRICS = ("continuous-overlap", "binary-threshold")
 
 
 @dataclass
@@ -25,6 +26,7 @@ class ExperimentConfig:
     chase_length: int = 3
     seed: int = 0
     eta: float | None = None
+    reward_metric: str = "continuous-overlap"
     overlap_threshold: float = DEFAULT_OVERLAP_THRESHOLD
     weight_calibration: str = "raw"
 
@@ -109,6 +111,20 @@ class WeightBank:
         return out
 
 
+def batch_reward(result, reward_metric: str) -> float:
+    """Convert one routed order batch into the online reward used by PWC."""
+    if reward_metric == "continuous-overlap":
+        if not result.per_order_overlap:
+            return 0.0
+        return float(np.mean(result.per_order_overlap))
+    if reward_metric == "binary-threshold":
+        return float(result.accuracy)
+    raise ValueError(
+        f"unknown reward_metric={reward_metric!r}; "
+        f"expected one of {REWARD_METRICS}"
+    )
+
+
 def _load_orders(city_dir: Path, n_orders: int, horizon: int) -> list[list[dict]]:
     with (city_dir / "sampled_orders.pkl").open("rb") as f:
         slots = pickle.load(f)
@@ -124,7 +140,32 @@ def _load_orders(city_dir: Path, n_orders: int, horizon: int) -> list[list[dict]
     return result
 
 
+def _metric_specific_final(
+    reward_metric: str,
+    pwc_reward_pct: float,
+    cumulative: np.ndarray,
+    best_idx: int,
+    horizon: int,
+) -> dict:
+    if reward_metric == "continuous-overlap":
+        suffix = "mean_overlap_pct"
+    else:
+        suffix = "binary_accuracy_pct"
+
+    out = {f"PWC_{suffix}": pwc_reward_pct}
+    for i, name in enumerate(MODEL_NAMES):
+        out[f"{name}_{suffix}"] = 100.0 * float(cumulative[i]) / horizon
+    out[f"best_fixed_{suffix}"] = 100.0 * float(cumulative[best_idx]) / horizon
+    return out
+
+
 def run_experiment(config: ExperimentConfig) -> dict:
+    if config.reward_metric not in REWARD_METRICS:
+        raise ValueError(
+            f"reward_metric must be one of {REWARD_METRICS}, "
+            f"got {config.reward_metric!r}"
+        )
+
     city_dir = Path(config.city_dir)
     out_dir = Path(config.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -163,13 +204,13 @@ def run_experiment(config: ExperimentConfig) -> dict:
 
         pwc_weights = bank.pwc_effective(selected, t, config.chase_length)
         pwc_res = router.evaluate(pwc_weights, orders[t])
-        slot_pwc[t] = pwc_res.accuracy
+        slot_pwc[t] = batch_reward(pwc_res, config.reward_metric)
         failures["PWC"] += pwc_res.failures
 
         for m, name in enumerate(MODEL_NAMES):
             w = bank.base_effective(m, t, config.chase_length)
             res = router.evaluate(w, orders[t])
-            slot_baseline[t, m] = res.accuracy
+            slot_baseline[t, m] = batch_reward(res, config.reward_metric)
             failures[name] += res.failures
 
         cumulative += slot_baseline[t]
@@ -180,6 +221,7 @@ def run_experiment(config: ExperimentConfig) -> dict:
         timings.append(elapsed)
         print(
             f"slot={t:03d} selected={MODEL_NAMES[chosen]:8s} "
+            f"reward={config.reward_metric} "
             f"pwc={100.0 * slot_pwc[t]:6.2f}% "
             f"base={(100.0 * slot_baseline[t]).round(2).tolist()} "
             f"sec={elapsed:.2f}",
@@ -190,8 +232,8 @@ def run_experiment(config: ExperimentConfig) -> dict:
     best_fixed_reward = float(cumulative[best_idx])
     pwc_reward = float(pwc_cumulative_curve[-1])
 
-    best_fixed_accuracy_pct = 100.0 * best_fixed_reward / config.horizon
-    pwc_accuracy_pct = 100.0 * pwc_reward / config.horizon
+    best_fixed_reward_pct = 100.0 * best_fixed_reward / config.horizon
+    pwc_reward_pct = 100.0 * pwc_reward / config.horizon
     relative_to_best_pct = (
         100.0 * (pwc_reward - best_fixed_reward) / best_fixed_reward
         if best_fixed_reward
@@ -203,22 +245,33 @@ def run_experiment(config: ExperimentConfig) -> dict:
     avg_regret = prefix_regret / np.arange(1, config.horizon + 1)
 
     final = {
-        "PWC_accuracy_pct": pwc_accuracy_pct,
+        "reward_metric": config.reward_metric,
+        "PWC_reward_pct": pwc_reward_pct,
         **{
-            f"{MODEL_NAMES[i]}_accuracy_pct":
+            f"{MODEL_NAMES[i]}_reward_pct":
                 100.0 * float(cumulative[i]) / config.horizon
             for i in range(len(MODEL_NAMES))
         },
         "best_fixed_model": MODEL_NAMES[best_idx],
-        "best_fixed_accuracy_pct": best_fixed_accuracy_pct,
+        "best_fixed_reward_pct": best_fixed_reward_pct,
         "PWC_relative_to_best_pct": relative_to_best_pct,
         "average_regret_final": float(avg_regret[-1]),
         "PWC_cumulative_reward": pwc_reward,
         "best_fixed_cumulative_reward": best_fixed_reward,
     }
+    final.update(
+        _metric_specific_final(
+            config.reward_metric,
+            pwc_reward_pct,
+            cumulative,
+            best_idx,
+            config.horizon,
+        )
+    )
 
     result = {
         "config": asdict(config),
+        "reward_metric": config.reward_metric,
         "models": list(MODEL_NAMES),
         "selector_eta": float(selector.eta),
         "weight_calibration_scales": {
@@ -250,8 +303,8 @@ def run_experiment(config: ExperimentConfig) -> dict:
         ],
         delimiter=",",
         header=(
-            "slot,pwc,"
-            + ",".join(MODEL_NAMES)
+            "slot,pwc_reward,"
+            + ",".join(f"{x}_reward" for x in MODEL_NAMES)
             + ",pwc_cum,"
             + ",".join(f"{x}_cum" for x in MODEL_NAMES)
         ),
